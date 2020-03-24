@@ -1,10 +1,10 @@
 variable "api_token" {
-  type = "string"
+  type = string
   description = "your logzio API token"
 }
 
 provider "logzio" {
-  api_token = "${var.api_token}"
+  api_token = var.api_token
 }
 
 resource "logzio_endpoint" "my_endpoint" {
@@ -23,12 +23,12 @@ resource "logzio_alert" "my_alert" {
   notification_emails = []
   search_timeframe_minutes = 5
   value_aggregation_type = "NONE"
-  alert_notification_endpoints = ["${logzio_endpoint.my_endpoint.id}"]
+  alert_notification_endpoints = [logzio_endpoint.my_endpoint.id]
   suppress_notifications_minutes = 5
   severity_threshold_tiers = [
     {
-      "severity" = "HIGH",
-      "threshold" = 10
+      severity = "HIGH",
+      threshold = 10
     }
   ]
 }
